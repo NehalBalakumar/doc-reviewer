@@ -1,39 +1,34 @@
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
 
-function Navbar() {
+function Navbar({ dark, setDark }) {
+
+  useEffect(() => {
+    if (dark) {
+      document.body.classList.add('dark')
+    } else {
+      document.body.classList.remove('dark')
+    }
+  }, [dark])
+
   return (
-    <nav style={{
-      background: '#fff',
-      borderBottom: '1px solid #eee',
-      padding: '0 40px',
-      height: '56px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      position: 'sticky',
-      top: 0,
-      zIndex: 100
-    }}>
-      <Link to="/">
-        <span style={{ fontWeight: 700, fontSize: '16px', letterSpacing: '-0.3px' }}>
-          clause<span style={{ color: '#6c47ff' }}>catch</span>
-        </span>
+    <nav className="navbar">
+      <Link to="/" className="navbar-logo">
+        clause<span>catch</span>
       </Link>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-        <Link to="/" style={{ fontSize: '14px', color: '#666' }}>Home</Link>
+      <div className="navbar-right">
+        <Link to="/" className="nav-link">Home</Link>
+
+        <button
+          className="dark-toggle"
+          onClick={() => setDark(!dark)}
+        >
+          {dark ? '☀️' : '🌙'}
+        </button>
+
         <Link to="/upload">
-          <button style={{
-            background: '#111',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '8px',
-            padding: '8px 18px',
-            fontSize: '13px',
-            fontWeight: '600'
-          }}>
-            Upload doc
-          </button>
+          <button className="nav-cta">Upload doc</button>
         </Link>
       </div>
     </nav>
